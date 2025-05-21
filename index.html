@@ -10,18 +10,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <style>
         :root {
-            --primary-blue: #007bff;
-            --light-blue: #e6f0ff;
-            --dark-blue: #0056b3;
-            --status-under-construction: #ffc107;
-            --status-down: #dc3545;
-            --status-running: #28a745;
-            --status-rate-limited: #fd7e14;
+            --primary-blue: #00c4ff; /* Neon blue from the image */
+            --light-blue: #1e3a5f; /* Darker blue for subtle backgrounds */
+            --dark-blue: #0d1b2a; /* Deep cosmic blue for navbar and footer */
+            --status-under-construction: #ffaa00; /* Softer yellow for construction status */
+            --status-down: #ff3366; /* Neon red for down status */
+            --status-running: #33ff99; /* Neon green for running status */
+            --status-rate-limited: #ff6633; /* Neon orange for rate-limited status */
         }
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, var(--light-blue), #ffffff);
-            color: #212529;
+            background: linear-gradient(135deg, var(--dark-blue), #2a4d7a); /* Cosmic gradient */
+            color: #e0e7ff; /* Light text for contrast on dark background */
             padding-top: 80px;
             line-height: 1.6;
         }
@@ -33,34 +33,35 @@
             z-index: 1000;
             padding: 12px 0;
             transition: background-color 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
         }
         #status-text {
             font-weight: 700;
             padding: 8px 20px;
             border-radius: 20px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(30, 58, 95, 0.8); /* Semi-transparent dark blue */
+            color: #e0e7ff;
         }
         .navbar {
             background-color: var(--dark-blue);
             position: sticky;
             top: 50px;
             z-index: 999;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         .navbar-brand, .nav-link {
-            color: white !important;
+            color: #00c4ff !important; /* Neon blue for navbar links */
             transition: color 0.3s ease;
         }
         .nav-link:hover {
-            color: var(--primary-blue) !important;
+            color: #33ff99 !important; /* Neon green on hover */
         }
         .section {
             padding: 5rem 0;
-            background: white;
+            background: rgba(30, 58, 95, 0.7); /* Translucent dark blue sections */
             margin: 1rem 0;
             border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease;
         }
         .section:hover {
@@ -68,7 +69,7 @@
         }
         .footer {
             background-color: var(--dark-blue);
-            color: white;
+            color: #e0e7ff;
             padding: 3rem 0;
             text-align: center;
             border-top: 4px solid var(--primary-blue);
@@ -78,10 +79,10 @@
             transition: color 0.3s ease;
         }
         .footer a:hover {
-            color: white;
+            color: #33ff99; /* Neon green on hover */
         }
         h2 {
-            color: var(--dark-blue);
+            color: var(--primary-blue);
             font-weight: 700;
             margin-bottom: 1.5rem;
         }
@@ -89,17 +90,18 @@
             background: var(--light-blue);
             padding: 2px 6px;
             border-radius: 4px;
+            color: #00c4ff;
         }
         .hero {
-            background-image: url('https://cdn.discordapp.com/attachments/1215962839588540527/1374516496310599740/blue-background-with-triangular-glowing-shapes-floating-space_358270-8960.jpg?ex=682e55be&is=682d043e&hm=26758b3efd5c4a8167e4e087aceee9a4c0413026daa70c33e679e286b59807c5&');
+            background-image: url('https://via.placeholder.com/1920x600?text=Roblox+Game+Tracker');
             background-size: cover;
             background-position: center;
             height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: #e0e7ff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
             margin-bottom: 2rem;
         }
         .hero h1 {
@@ -109,9 +111,16 @@
         .progress {
             height: 20px;
             margin-top: 10px;
+            background-color: #0d1b2a; /* Darker background for progress bar */
         }
         .progress-bar {
             background-color: var(--primary-blue);
+        }
+        a.text-blue-600 {
+            color: var(--primary-blue) !important;
+        }
+        a.text-blue-600:hover {
+            color: #33ff99 !important; /* Neon green on hover */
         }
     </style>
 </head>

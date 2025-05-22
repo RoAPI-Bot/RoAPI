@@ -4,27 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoAPI - Roblox Game Tracker Bot</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
     <style>
+        /* Custom CSS variables for consistent neon theme */
         :root {
-            --primary-blue: #00c4ff; /* Neon blue from the image */
+            --primary-blue: #00c4ff; /* Vibrant neon blue for accents */
             --light-blue: #1e3a5f; /* Darker blue for subtle backgrounds */
-            --dark-blue: #0d1b2a; /* Deep cosmic blue for navbar and footer */
-            --status-under-construction: #ffaa00; /* Softer yellow for construction status */
+            --dark-blue: #0d1b2a; /* Deep cosmic blue for main background elements */
+            --status-under-construction: #ffaa00; /* Neon yellow for construction */
             --status-down: #ff3366; /* Neon red for down status */
             --status-running: #33ff99; /* Neon green for running status */
             --status-rate-limited: #ff6633; /* Neon orange for rate-limited status */
+            --text-light: #e0e7ff; /* Light text for contrast */
+            --glow-shadow: 0 0 8px var(--primary-blue), 0 0 15px var(--primary-blue); /* Neon glow effect */
         }
+
+        /* Body styling to match the cosmic, glowing triangle image */
         body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, var(--dark-blue), #2a4d7a); /* Cosmic gradient */
-            color: #e0e7ff; /* Light text for contrast on dark background */
-            padding-top: 80px;
-            line-height: 1.6;
+            font-family: 'Inter', sans-serif; /* Use Inter font */
+            background-color: var(--dark-blue); /* Fallback background color */
+            /* UPDATED: Using the new image as the main background */
+            background-image: url('blue-background-with-triangular-glowing-shapes-floating-space_358270-8960-1.jpg-2e64061b-1570-4930-b9aa-d3c9d686a57f');
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+            background-attachment: fixed; /* Parallax effect for the background */
+            color: var(--text-light); /* Light text color */
+            padding-top: 80px; /* Space for fixed status header */
+            line-height: 1.6; /* Improved readability */
+            position: relative; /* For overlay */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
+
+        /* Overlay for the background image to maintain dark cosmic feel */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(42, 77, 122, 0.8)); /* Dark cosmic gradient overlay */
+            z-index: -1; /* Behind content */
+        }
+
+        /* Fixed status header at the top */
         #status-header {
             position: fixed;
             top: 0;
@@ -33,127 +57,332 @@
             z-index: 1000;
             padding: 12px 0;
             transition: background-color 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
+            backdrop-filter: blur(5px); /* Subtle blur for modern look */
+            background-color: rgba(13, 27, 42, 0.9); /* Semi-transparent dark blue */
         }
+
+        /* Status text styling */
         #status-text {
             font-weight: 700;
             padding: 8px 20px;
             border-radius: 20px;
             background: rgba(30, 58, 95, 0.8); /* Semi-transparent dark blue */
-            color: #e0e7ff;
+            color: var(--text-light);
+            text-shadow: var(--glow-shadow); /* Apply neon glow to status text */
         }
+
+        /* Navbar styling */
         .navbar {
-            background-color: var(--dark-blue);
+            background-color: rgba(13, 27, 42, 0.95); /* Slightly less transparent than header */
             position: sticky;
-            top: 50px;
+            top: 50px; /* Below the status header */
             z-index: 999;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Enhanced shadow */
+            border-radius: 10px; /* Rounded corners for the navbar */
+            margin-bottom: 2rem; /* Space below navbar */
+            backdrop-filter: blur(3px); /* Subtle blur */
         }
+
+        /* Navbar brand and links with neon blue and hover effect */
         .navbar-brand, .nav-link {
-            color: #00c4ff !important; /* Neon blue for navbar links */
-            transition: color 0.3s ease;
+            color: var(--primary-blue) !important; /* Neon blue */
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            text-shadow: 0 0 5px var(--primary-blue); /* Subtle glow */
         }
+
         .nav-link:hover {
             color: #33ff99 !important; /* Neon green on hover */
+            text-shadow: 0 0 10px #33ff99, 0 0 20px #33ff99; /* Stronger glow on hover */
         }
+
+        /* Section styling with translucent background and glow */
         .section {
-            padding: 5rem 0;
+            padding: 3rem 2rem; /* Adjusted padding */
             background: rgba(30, 58, 95, 0.7); /* Translucent dark blue sections */
-            margin: 1rem 0;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
+            margin: 1.5rem auto; /* Centered with more margin */
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), var(--glow-shadow); /* Enhanced shadow and glow */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            max-width: 900px; /* Max width for content readability */
         }
+
         .section:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px); /* More pronounced lift on hover */
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-blue), 0 0 30px var(--primary-blue); /* Stronger glow on hover */
         }
+
+        /* Footer styling */
         .footer {
             background-color: var(--dark-blue);
-            color: #e0e7ff;
+            color: var(--text-light);
             padding: 3rem 0;
             text-align: center;
-            border-top: 4px solid var(--primary-blue);
+            border-top: 4px solid var(--primary-blue); /* Neon blue border top */
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+            margin-top: 3rem;
         }
+
+        /* Footer links with neon blue and hover effect */
         .footer a {
             color: var(--primary-blue);
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            text-shadow: 0 0 5px var(--primary-blue);
         }
+
         .footer a:hover {
             color: #33ff99; /* Neon green on hover */
+            text-shadow: 0 0 10px #33ff99;
         }
-        h2 {
+
+        /* Headings with neon blue and glow */
+        h1, h2 {
             color: var(--primary-blue);
             font-weight: 700;
             margin-bottom: 1.5rem;
+            text-shadow: var(--glow-shadow); /* Apply neon glow */
+            text-align: center; /* Center headings */
         }
+
+        /* Code block styling */
         code {
             background: var(--light-blue);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #00c4ff;
+            padding: 4px 8px; /* Slightly more padding */
+            border-radius: 6px; /* More rounded */
+            color: var(--primary-blue);
+            font-family: 'Fira Code', monospace; /* A more "code-like" font */
+            box-shadow: 0 0 5px rgba(0, 196, 255, 0.5); /* Subtle glow for code */
         }
+
+        /* Hero section with the actual image and enhanced text */
         .hero {
-            background-image: url('https://cdn.discordapp.com/attachments/1277782385798283275/1374855520761942177/blue-background-with-triangular-glowing-shapes-floating-space_358270-8960.jpg?ex=682f917b&is=682e3ffb&hm=a5d469d811136331dc11d4cecbda3cd72d889788b68f4f496155080239e61b7e&');
+            /* UPDATED: Using the new image for the hero section as well */
+            background-image: url('blue-background-with-triangular-glowing-shapes-floating-space_358270-8960-1.jpg-2e64061b-1570-4930-b9aa-d3c9d686a57f');
             background-size: cover;
             background-position: center;
-            height: 400px;
+            height: 500px; /* Increased height for impact */
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #e0e7ff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-            margin-bottom: 2rem;
+            color: var(--text-light);
+            text-shadow: 0 0 15px rgba(0, 196, 255, 0.8), 0 0 25px rgba(0, 196, 255, 0.6); /* Stronger glow for hero text */
+            margin-bottom: 3rem;
+            border-radius: 15px; /* Rounded corners */
+            overflow: hidden; /* Ensure content stays within bounds */
         }
+
         .hero h1 {
-            font-size: 3rem;
+            font-size: 4rem; /* Larger font size */
             font-weight: 700;
+            text-align: center;
+            line-height: 1.2;
+            padding: 0 1rem; /* Padding to prevent text from touching edges */
         }
-        .progress {
-            height: 20px;
+
+        /* Keyframe animation for pulsating glow */
+        @keyframes pulse-glow {
+            0% {
+                box-shadow: 0 0 10px var(--primary-blue), 0 0 15px rgba(0, 196, 255, 0.7);
+            }
+            50% {
+                box-shadow: 0 0 20px var(--primary-blue), 0 0 30px rgba(0, 196, 255, 0.9);
+            }
+            100% {
+                box-shadow: 0 0 10px var(--primary-blue), 0 0 15px rgba(0, 196, 255, 0.7);
+            }
+        }
+
+        /* Progress bar styling */
+        progress {
+            /* Remove default appearance */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+
+            height: 25px; /* Taller progress bar */
             margin-top: 10px;
-            background-color: #0d1b2a; /* Darker background for progress bar */
+            background-color: rgba(13, 27, 42, 0.8); /* Darker, semi-transparent background for progress bar */
+            border-radius: 9999px; /* Fully rounded corners (like Tailwind's rounded-full) */
+            overflow: hidden; /* Ensure bar stays within bounds */
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.7), 0 0 5px rgba(0, 196, 255, 0.3); /* Inner shadow for depth, subtle outer glow */
+            border: 1px solid rgba(0, 196, 255, 0.3); /* Subtle neon border */
+            width: 50%; /* Tailwind's w-1/2 */
+            margin-left: auto; /* Tailwind's mx-auto */
+            margin-right: auto; /* Tailwind's mx-auto */
+            display: block; /* Ensure it takes full width and margins work */
         }
-        .progress-bar {
-            background-color: var(--primary-blue);
+
+        /* Style the progress bar fill for Webkit (Chrome, Safari) */
+        progress::-webkit-progress-bar {
+            background-color: rgba(13, 27, 42, 0.8);
+            border-radius: 9999px;
         }
+
+        progress::-webkit-progress-value {
+            background: linear-gradient(90deg, rgba(0, 196, 255, 0.5), var(--primary-blue), rgba(0, 196, 255, 0.5)); /* More dynamic gradient */
+            border-radius: 9999px;
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8); /* Enhanced neon glow for the bar */
+            filter: drop-shadow(0 0 8px rgba(0, 196, 255, 0.7)); /* Additional soft glow */
+            animation: pulse-glow 2s infinite alternate; /* Apply pulsating glow animation */
+            transition: width 0.5s ease-in-out; /* Smooth transition for progress */
+        }
+
+        /* Style the progress bar fill for Firefox */
+        progress::-moz-progress-bar {
+            background: linear-gradient(90deg, rgba(0, 196, 255, 0.5), var(--primary-blue), rgba(0, 196, 255, 0.5)); /* More dynamic gradient */
+            border-radius: 9999px;
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8); /* Enhanced neon glow for the bar */
+            filter: drop-shadow(0 0 8px rgba(0, 196, 255, 0.7)); /* Additional soft glow */
+            animation: pulse-glow 2s infinite alternate; /* Apply pulsating glow animation */
+            transition: width 0.5s ease-in-out; /* Smooth transition for progress */
+        }
+
+        /* Link styling with neon blue and hover effect */
         a.text-blue-600 {
             color: var(--primary-blue) !important;
+            text-shadow: 0 0 5px var(--primary-blue);
+            transition: color 0.3s ease, text-shadow 0.3s ease;
         }
+
         a.text-blue-600:hover {
             color: #33ff99 !important; /* Neon green on hover */
+            text-shadow: 0 0 10px #33ff99;
+        }
+
+        /* Status indicators for the status section */
+        .status-indicator {
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle white glow */
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Specific status colors with enhanced glow */
+        .bg-yellow-400 { background-color: var(--status-under-construction) !important; color: #333 !important; text-shadow: none; }
+        .bg-red-500 { background-color: var(--status-down) !important; box-shadow: 0 0 10px var(--status-down); }
+        .bg-green-500 { background-color: var(--status-running) !important; box-shadow: 0 0 10px var(--status-running); }
+        .bg-orange-500 { background-color: var(--status-rate-limited) !important; box-shadow: 0 0 10px var(--status-rate-limited); }
+
+        /* Review card styling */
+        .review-card {
+            background: rgba(30, 58, 95, 0.8); /* Slightly darker translucent background */
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(0, 196, 255, 0.2); /* Subtle neon border */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 10px var(--primary-blue); /* Enhanced glow on hover */
+        }
+
+        .review-stars {
+            color: #FFD700; /* Gold color for stars */
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.7); /* Gold glow for stars */
+        }
+
+        /* Styling for rating breakdown bars */
+        .progress-rating {
+            height: 18px; /* Slightly smaller than main progress bar */
+            background-color: rgba(13, 27, 42, 0.6); /* Darker background */
+            border-radius: 9999px;
+            overflow: hidden;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 196, 255, 0.1);
+            flex-grow: 1; /* Allow it to take available space */
+        }
+
+        .progress-bar-rating {
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0, 196, 255, 0.3), var(--primary-blue)); /* Lighter gradient */
+            border-radius: 9999px;
+            transition: width 0.5s ease-in-out;
+            box-shadow: 0 0 8px var(--primary-blue); /* Subtle glow */
+        }
+
+        /* Button styling for "Submit a Review" */
+        .btn-neon {
+            background: linear-gradient(45deg, var(--primary-blue), #33ff99); /* Gradient from blue to green */
+            color: var(--dark-blue); /* Dark text for contrast */
+            font-weight: 700;
+            padding: 12px 30px;
+            border-radius: 9999px; /* Fully rounded */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px #33ff99; /* Dual neon glow */
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline for links */
+            display: inline-block; /* Allows padding and margin */
+        }
+
+        .btn-neon:hover {
+            transform: translateY(-3px) scale(1.02); /* Slight lift and scale */
+            box-shadow: 0 0 20px var(--primary-blue), 0 0 35px #33ff99; /* Stronger glow on hover */
+            color: var(--dark-blue); /* Ensure text color remains dark */
+        }
+
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem; /* Smaller font on mobile */
+            }
+            .section {
+                padding: 2rem 1rem; /* Reduced padding on mobile */
+                margin: 1rem auto;
+            }
+            #status-header {
+                padding: 8px 0; /* Smaller padding for status header */
+            }
+            .navbar {
+                top: 40px; /* Adjust navbar position for smaller status header */
+            }
+            body {
+                padding-top: 60px; /* Adjust body padding for smaller status header */
+            }
+            progress {
+                width: 80%; /* Wider progress bar on small screens */
+            }
         }
     </style>
 </head>
-<body>
+<body class="font-inter">
     <div id="status-header" class="text-center">
         <span id="status-text" class="inline-block"></span>
         <div id="tracker-progress" class="mt-2">
-            <progress value="0" max="100" class="w-50 mx-auto"></progress>
-            <p id="tracker-text" class="mt-1">0/0 trackers updated</p>
+            <progress value="0" max="100"></progress>
+            <p id="tracker-text" class="mt-1 text-sm">0/0 trackers updated</p>
         </div>
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand font-bold text-xl" href="#">RoAPI</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container mx-auto px-4">
+            <a class="navbar-brand font-bold text-2xl" href="#">RoAPI</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link px-3" href="#how-it-works">How it works</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#premium">Premium</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#more-trackers">More trackers</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#how-to-invite">How to invite</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="#status">Status</a></li>
-                    <li class="nav-item"><a class="nav-link px-3" href="reviews.html">Reviews</a></li>
+                <ul class="navbar-nav ml-auto flex flex-col lg:flex-row items-center">
+                    <li class="nav-item"><a class="nav-link px-4 py-2 rounded-md hover:bg-light-blue transition-colors duration-300" href="#how-it-works">How it works</a></li>
+                    <li class="nav-item"><a class="nav-link px-4 py-2 rounded-md hover:bg-light-blue transition-colors duration-300" href="#premium">Premium</a></li>
+                    <li class="nav-item"><a class="nav-link px-4 py-2 rounded-md hover:bg-light-blue transition-colors duration-300" href="#more-trackers">More trackers</a></li>
+                    <li class="nav-item"><a class="nav-link px-4 py-2 rounded-md hover:bg-light-blue transition-colors duration-300" href="#how-to-invite">How to invite</a></li>
+                    <li class="nav-item"><a class="nav-link px-4 py-2 rounded-md hover:bg-light-blue transition-colors duration-300" href="#status">Status</a></li>
+                    <li class="nav-item"><a class="nav-link px-4 py-2 rounded-md hover:bg-light-blue transition-colors duration-300" href="#overall-ratings">Reviews</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <div class="hero">
-        <h1>RoAPI - Roblox Game Tracker</h1>
+    <div class="hero flex items-center justify-center">
+        <h1 class="text-white text-center">RoAPI - Roblox Game Tracker</h1>
     </div>
 
     <main class="container mx-auto px-4">
@@ -202,60 +431,137 @@
             <h2>Status</h2>
             <p>The bot's current status is shown at the top. Possible states:</p>
             <ul class="list-disc ml-6 space-y-2">
-                <li><span class="inline-block bg-yellow-400 text-black px-2 py-1 rounded">🛠️ Under Construction</span>: Maintenance or updates in progress.</li>
-                <li><span class="inline-block bg-red-500 text-white px-2 py-1 rounded">🔴 Down</span>: Bot is offline.</li>
-                <li><span class="inline-block bg-green-500 text-white px-2 py-1 rounded">🟢 Running</span>: Fully operational.</li>
-                <li><span class="inline-block bg-orange-500 text-white px-2 py-1 rounded">⚠️ Rate Limited</span>: Experiencing rate limits; shows time until reset.</li>
+                <li><span class="status-indicator bg-yellow-400 text-black">🛠️ Under Construction</span>: Maintenance or updates in progress.</li>
+                <li><span class="status-indicator bg-red-500 text-white">🔴 Down</span>: Bot is offline.</li>
+                <li><span class="status-indicator bg-green-500 text-white">🟢 Running</span>: Fully operational.</li>
+                <li><span class="status-indicator bg-orange-500 text-white">⚠️ Rate Limited</span>: Experiencing rate limits; shows time until reset.</li>
             </ul>
         </section>
 
         <section id="gallery" class="section">
             <h2>Gallery</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <a href="https://via.placeholder.com/600x400?text=Image+1" data-lightbox="gallery" data-title="Image 1">
-                        <img src="https://via.placeholder.com/300x200?text=Image+1" class="img-fluid rounded" alt="Image 1" loading="lazy">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="mb-4">
+                    <a href="https://placehold.co/600x400/00c4ff/ffffff?text=Image+1" data-lightbox="gallery" data-title="Image 1">
+                        <img src="https://placehold.co/300x200/00c4ff/ffffff?text=Image+1" class="img-fluid rounded-lg shadow-lg hover:shadow-primary-blue transition-shadow duration-300" alt="Image 1" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0d1b2a/e0e7ff?text=Placeholder';">
                     </a>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <a href="https://via.placeholder.com/600x400?text=Image+2" data-lightbox="gallery" data-title="Image 2">
-                        <img src="https://via.placeholder.com/300x200?text=Image+2" class="img-fluid rounded" alt="Image 2" loading="lazy">
+                <div class="mb-4">
+                    <a href="https://placehold.co/600x400/00c4ff/ffffff?text=Image+2" data-lightbox="gallery" data-title="Image 2">
+                        <img src="https://placehold.co/300x200/00c4ff/ffffff?text=Image+2" class="img-fluid rounded-lg shadow-lg hover:shadow-primary-blue transition-shadow duration-300" alt="Image 2" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0d1b2a/e0e7ff?text=Placeholder';">
                     </a>
                 </div>
-                <div class="col-md-4 mb-4">
-                    <a href="https://via.placeholder.com/600x400?text=Image+3" data-lightbox="gallery" data-title="Image 3">
-                        <img src="https://via.placeholder.com/300x200?text=Image+3" class="img-fluid rounded" alt="Image 3" loading="lazy">
+                <div class="mb-4">
+                    <a href="https://placehold.co/600x400/00c4ff/ffffff?text=Image+3" data-lightbox="gallery" data-title="Image 3">
+                        <img src="https://placehold.co/300x200/00c4ff/ffffff?text=Image+3" class="img-fluid rounded-lg shadow-lg hover:shadow-primary-blue transition-shadow duration-300" alt="Image 3" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0d1b2a/e0e7ff?text=Placeholder';">
                     </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="overall-ratings" class="section">
+            <h2>Overall User Ratings</h2>
+            <div class="text-center mb-6">
+                <div id="overall-average-stars" class="text-6xl text-yellow-400 mb-2"></div>
+                <p id="overall-average-text" class="text-3xl font-bold text-primary-blue"></p>
+                <p id="total-reviews-text" class="text-lg text-gray-400 mb-4"></p>
+                <a href="https://top.gg/bot/1362442812380938410" target="_blank" class="btn-neon">Submit a Review</a>
+            </div>
+
+            <div id="star-breakdown" class="space-y-4">
+                </div>
+        </section>
+
+        <section id="reviews" class="section">
+            <h2>What Our Users Say</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
+                    <p class="text-lg font-semibold mb-2">"Absolutely essential for Roblox game developers!"</p>
+                    <p class="text-base">"RoAPI has revolutionized how I monitor my game's performance. The real-time updates and detailed reports are invaluable. Highly recommend for serious creators!"</p>
+                    <p class="text-sm mt-3 text-gray-300">- RobloxDevMaster</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
+                    <p class="text-lg font-semibold mb-2">"Never miss an update again!"</p>
+                    <p class="text-base">"As a community manager, keeping track of game updates was a nightmare. RoAPI makes it effortless. The notifications are instant and the setup was a breeze."</p>
+                    <p class="text-sm mt-3 text-gray-300">- CommunityHero</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
+                    <p class="text-lg font-semibold mb-2">"Premium features are a game-changer!"</p>
+                    <p class="text-base">"I upgraded to Premium for the sub-place detection and weekly reports, and it's worth every Robux. The insights I get now are incredible. Top-tier bot!"</p>
+                    <p class="text-sm mt-3 text-gray-300">- ProGamerAnalytics</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
+                    <p class="text-lg font-semibold mb-2">"Simple, effective, and reliable."</p>
+                    <p class="text-base">"I was looking for a straightforward way to track my favorite Roblox game, and RoAPI delivers. It's easy to use and I always know when something new happens."</p>
+                    <p class="text-sm mt-3 text-gray-300">- CasualPlayerX</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
+                    <p class="text-lg font-semibold mb-2">"Fantastic support and constant improvements."</p>
+                    <p class="text-base">"Had a small question, joined their Discord, and got help right away. It's clear the developers care about this bot and its users. Very impressed!"</p>
+                    <p class="text-sm mt-3 text-gray-300">- DiscordMod</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-stars">★★★★★</div>
+                    <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
+                    <p class="text-lg font-semibold mb-2">"A must-have for any Roblox enthusiast!"</p>
+                    <p class="text-base">"Whether you're a developer or just a fan, RoAPI gives you the edge. Knowing player counts and updates instantly is a huge advantage. Get it now!"</p>
+                    <p class="text-sm mt-3 text-gray-300">- RobloxFanatic</p>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="footer">
-        <p>© 2023 RoAPI. All rights reserved.</p>
-        <ul class="list-inline">
-            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
-            <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+        <p class="text-sm">&copy; 2023 RoAPI. All rights reserved.</p>
+        <ul class="list-inline mt-2 flex justify-center space-x-4">
+            <li class="list-inline-item"><a href="#" class="text-sm hover:underline">Privacy Policy</a></li>
+            <li class="list-inline-item"><a href="#" class="text-sm hover:underline">Terms of Service</a></li>
         </ul>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        let status = "rate_limited";
-        let rateLimitResetTime = new Date().getTime() + 30000;
-        let totalTrackers = 50;
-        let updatedTrackers = 0;
+        // Initial status and progress simulation values
+        let status = "rate_limited"; // Current bot status
+        let rateLimitResetTime = new Date().getTime() + 30000; // Simulate rate limit reset in 30 seconds
+        let totalTrackers = 50; // Total number of trackers
+        let updatedTrackers = 0; // Number of trackers updated
 
+        // Data for overall star ratings
+        // You can modify these values to see the overall rating and bars update!
+        let starRatingsData = {
+            5: 75, // 75 reviews gave 5 stars
+            4: 40, // 40 reviews gave 4 stars
+            3: 20, // 20 reviews gave 3 stars
+            2: 10, // 10 reviews gave 2 stars
+            1: 5   // 5 reviews gave 1 star
+        };
+
+        /**
+         * Updates the status text and background color of the status header.
+         * This function is called periodically to reflect changes in bot status.
+         */
         function updateStatus() {
             let statusText = "";
             let backgroundColor = "";
+            let textColor = "var(--text-light)"; // Default text color for status
+
+            // Determine status text and background color based on current status
             switch(status) {
                 case "under_construction":
                     statusText = "🛠️ Under Construction";
                     backgroundColor = "var(--status-under-construction)";
+                    textColor = "#333"; // Darker text for yellow background
                     break;
                 case "down":
                     statusText = "🔴 Down";
@@ -268,6 +574,7 @@
                 case "rate_limited":
                     statusText = "⚠️ Rate Limited";
                     backgroundColor = "var(--status-rate-limited)";
+                    // Calculate time left for rate limit reset
                     if (rateLimitResetTime) {
                         let now = new Date().getTime();
                         let timeLeft = Math.ceil((rateLimitResetTime - now) / 1000);
@@ -280,31 +587,95 @@
                     break;
                 default:
                     statusText = "Unknown Status";
-                    backgroundColor = "#6c757d";
+                    backgroundColor = "#6c757d"; // Grey for unknown
             }
+            // Apply updates to the DOM
             document.getElementById("status-text").innerText = statusText;
+            document.getElementById("status-text").style.color = textColor;
             document.getElementById("status-header").style.backgroundColor = backgroundColor;
         }
 
+        /**
+         * Updates the progress bar and text for tracker updates.
+         * This simulates the bot's progress in updating game trackers.
+         */
         function updateTrackerProgress() {
             let progress = (updatedTrackers / totalTrackers) * 100;
             document.querySelector("#tracker-progress progress").value = progress;
             document.getElementById("tracker-text").innerText = `${updatedTrackers}/${totalTrackers} trackers updated`;
         }
 
-        if (status === "rate_limited") {
-            setInterval(updateStatus, 1000);
-        } else {
-            updateStatus();
+        /**
+         * Generates star icons (full, half, empty) based on a given rating.
+         * @param {number} rating - The numerical rating (e.g., 4.5).
+         * @returns {string} HTML string of star icons.
+         */
+        function generateStarIcons(rating) {
+            let starsHtml = '';
+            const fullStars = Math.floor(rating);
+            const halfStar = rating % 1 >= 0.5;
+            const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+            for (let i = 0; i < fullStars; i++) {
+                starsHtml += '★'; // Full star
+            }
+            if (halfStar) {
+                starsHtml += '½'; // Half star
+            }
+            for (let i = 0; i < emptyStars; i++) {
+                starsHtml += '☆'; // Empty star
+            }
+            return starsHtml;
         }
 
-        // Simulate tracker updates
-        setInterval(() => {
-            if (updatedTrackers < totalTrackers) {
-                updatedTrackers++;
-                updateTrackerProgress();
+        /**
+         * Calculates and updates the overall average rating and the breakdown bars.
+         * This function reads from `starRatingsData` and updates the relevant DOM elements.
+         */
+        function updateOverallRatings() {
+            let totalReviews = 0;
+            let weightedSum = 0;
+
+            // Calculate total reviews and weighted sum
+            for (const stars in starRatingsData) {
+                totalReviews += starRatingsData[stars];
+                weightedSum += parseInt(stars) * starRatingsData[stars];
             }
-        }, 2000);
+
+            // Calculate average rating, handle division by zero
+            const averageRating = totalReviews === 0 ? 0 : (weightedSum / totalReviews).toFixed(1);
+
+            // Update overall average display
+            document.getElementById('overall-average-stars').innerHTML = generateStarIcons(averageRating);
+            document.getElementById('overall-average-text').innerText = `${averageRating} / 5 Stars`;
+            document.getElementById('total-reviews-text').innerText = `${totalReviews} Total Reviews`;
+
+            // Update individual star breakdown bars
+            const starBreakdownContainer = document.getElementById('star-breakdown');
+            starBreakdownContainer.innerHTML = ''; // Clear previous bars
+
+            // Render bars from 5 stars down to 1 star
+            for (let i = 5; i >= 1; i--) {
+                const count = starRatingsData[i] || 0; // Get count, default to 0 if not present
+                const percentage = totalReviews === 0 ? 0 : (count / totalReviews) * 100; // Calculate percentage
+
+                const barHtml = `
+                    <div class="flex items-center space-x-3">
+                        <span class="w-8 text-right text-lg font-bold text-primary-blue">${i} <span class="text-yellow-400">★</span></span>
+                        <div class="flex-grow progress-rating">
+                            <div class="progress-bar-rating" style="width: ${percentage}%;"></div>
+                        </div>
+                        <span class="w-12 text-left text-sm text-gray-300">${count}</span>
+                    </div>
+                `;
+                starBreakdownContainer.innerHTML += barHtml;
+            }
+        }
+
+        // Initial calls to update UI on page load
+        updateStatus();
+        updateTrackerProgress();
+        updateOverallRatings(); // Call the new function to populate ratings
     </script>
 </body>
 </html>

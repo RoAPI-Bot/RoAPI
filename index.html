@@ -62,16 +62,6 @@
             background-color: rgba(13, 27, 42, 0.9); /* Semi-transparent dark blue */
         }
 
-        /* Status text styling */
-        #status-text {
-            font-weight: 700;
-            padding: 8px 20px;
-            border-radius: 20px;
-            background: rgba(30, 58, 95, 0.8); /* Semi-transparent dark blue */
-            color: var(--text-light);
-            text-shadow: var(--glow-shadow); /* Apply neon glow to status text */
-        }
-
         /* Navbar styling */
         .navbar {
             background-color: rgba(13, 27, 42, 0.95); /* Slightly less transparent than header */
@@ -161,6 +151,7 @@
             background-position: center;
             height: 500px; /* Increased height for impact */
             display: flex;
+            flex-direction: column; /* Allow stacking of h1 and button */
             align-items: center;
             justify-content: center;
             color: var(--text-light);
@@ -176,6 +167,7 @@
             text-align: center;
             line-height: 1.2;
             padding: 0 1rem; /* Padding to prevent text from touching edges */
+            margin-bottom: 1.5rem; /* Space between h1 and button */
         }
 
         /* Keyframe animation for pulsating glow */
@@ -304,7 +296,7 @@
             box-shadow: 0 0 8px var(--primary-blue); /* Subtle glow */
         }
 
-        /* Button styling for "Submit a Review" */
+        /* Button styling for "Submit a Review" and "Invite Bot" */
         .btn-neon {
             background: linear-gradient(45deg, var(--primary-blue), #33ff99); /* Gradient from blue to green */
             color: var(--dark-blue); /* Dark text for contrast */
@@ -327,6 +319,23 @@
             color: var(--dark-blue); /* Ensure text color remains dark */
         }
 
+        /* Fixed logo in the corner */
+        .corner-logo {
+            position: fixed;
+            top: 1rem; /* Distance from top */
+            left: 1rem; /* Distance from left */
+            z-index: 1001; /* Ensure it's above everything else */
+            width: 64px; /* Size of the logo */
+            height: 64px;
+            border-radius: 50%; /* Make it perfectly round */
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8); /* Strong neon glow */
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .corner-logo:hover {
+            transform: scale(1.05); /* Slightly enlarge on hover */
+            box-shadow: 0 0 20px var(--primary-blue), 0 0 35px rgba(0, 196, 255, 1); /* Stronger glow on hover */
+        }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
@@ -349,10 +358,18 @@
             progress {
                 width: 80%; /* Wider progress bar on small screens */
             }
+            .corner-logo {
+                width: 48px; /* Smaller logo on mobile */
+                height: 48px;
+                top: 0.5rem;
+                left: 0.5rem;
+            }
         }
     </style>
 </head>
 <body class="font-inter">
+    <img src="https://cdn.discordapp.com/attachments/1341204908124405833/1375178849347833866/MeshesroundEdges2_diff.png?ex=6830be9b&is=682f6d1b&hm=f8da15d61fe2a61e70518847c3fb6915912aa263e86522fb21361cab19fe7b08&" alt="RoAPI Logo" class="corner-logo">
+
     <div id="status-header" class="text-center">
         <span id="status-text" class="inline-block"></span>
         <div id="tracker-progress" class="mt-2">
@@ -363,10 +380,7 @@
 
     <nav class="navbar navbar-expand-lg">
         <div class="container mx-auto px-4">
-            <a class="navbar-brand font-bold text-2xl flex items-center" href="#">
-                <img src="https://cdn.discordapp.com/attachments/1341204908124405833/1375178849347833866/MeshesroundEdges2_diff.png?ex=6830be9b&is=682f6d1b&hm=f8da15d61fe2a61e70518847c3fb6915912aa263e86522fb21361cab19fe7b08&" alt="RoAPI Logo" class="mr-2 rounded-full w-10 h-10">
-                RoAPI
-            </a>
+            <a class="navbar-brand font-bold text-2xl" href="#">RoAPI</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -385,6 +399,7 @@
 
     <div class="hero flex items-center justify-center">
         <h1 class="text-white text-center">RoAPI - Roblox Game Tracker</h1>
+        <a href="https://discord.com/oauth2/authorize?client_id=1362442812380938410" target="_blank" class="btn-neon mt-4">Invite RoAPI Bot</a>
     </div>
 
     <main class="container mx-auto px-4">
@@ -447,7 +462,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="mb-4">
                     <a href="https://cdn.discordapp.com/attachments/1205534191014641764/1365594195280003122/New_Project_60.png?ex=68302733&is=682ed5b3&hm=31ac6463e70fefdc10891f23cd412375b56a4eed3d89d3acd117e91bb37d85dc&" data-lightbox="gallery" data-title="Image 1">
-                        <img src="https://cdn.discordapp.com/attachments/1205534191014641764/1365594195280003122/New_Project_60.png?ex=68302733&is=682ed5b3&hm=31ac6463e70fefdc10891f23cd412375b56a4eed3d89d3acd117e91bb37d85dc&" class="img-fluid rounded-lg shadow-lg hover:shadow-primary-blue transition-shadow duration-300" alt="Image 1" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0d1b2a/e0e7ff?text=Placeholder';">
+                        <img src="https://cdn.discordapp.com/attachments/1205534191014641764/1365594195280003122/New_Project_60.png?ex=68302733&is=682ed5b3&hm=31ac6463e70fefdc10891f23cd412375b56a4eed3d85dc&" class="img-fluid rounded-lg shadow-lg hover:shadow-primary-blue transition-shadow duration-300" alt="Image 1" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0d1b2a/e0e7ff?text=Placeholder';">
                     </a>
                 </div>
                 <div class="mb-4">

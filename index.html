@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RoAPI - Roblox Game Tracker Bot</title>
+    <link rel="icon" href="https://cdn.discordapp.com/attachments/1341204908124405833/1375178849347833866/MeshesroundEdges2_diff.png?ex=6830be9b&is=682f6d1b&hm=f8da15d61fe2a61e70518847c3fb6915912aa263e86522fb21361cab19fe7b08&" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -24,7 +25,6 @@
         body {
             font-family: 'Inter', sans-serif; /* Use Inter font */
             background-color: var(--dark-blue); /* Fallback background color */
-            /* UPDATED: Using the new image as the main background */
             background-image: url('https://cdn.discordapp.com/attachments/1277782385798283275/1374855520761942177/blue-background-with-triangular-glowing-shapes-floating-space_358270-8960.jpg?ex=68303a3b&is=682ee8bb&hm=fd8ccf255580759325f3c3919e0bbe318a24da31818d86f2572f405f719de17a&');
             background-size: cover; /* Cover the entire viewport */
             background-position: center; /* Center the background image */
@@ -156,8 +156,7 @@
 
         /* Hero section with the actual image and enhanced text */
         .hero {
-            /* UPDATED: Using the new image for the hero section as well */
-            background-image: url('https://cdn.discordapp.com/attachments/1277782385798283275/1374855520761942177/blue-background-with-triangular-glowing-shapes-floating-space_358270-8960.jpg?ex=68303a3b&is=682ee8bb&hm=fd8ccf255580759325f3c3919e0bbe318a24da31818d86f2572f405f719de17a&');
+            background-image: url('blue-background-with-triangular-glowing-shapes-floating-space_358270-8960-1.jpg-2e64061b-1570-4930-b9aa-d3c9d686a57f');
             background-size: cover;
             background-position: center;
             height: 500px; /* Increased height for impact */
@@ -364,7 +363,10 @@
 
     <nav class="navbar navbar-expand-lg">
         <div class="container mx-auto px-4">
-            <a class="navbar-brand font-bold text-2xl" href="#">RoAPI</a>
+            <a class="navbar-brand font-bold text-2xl flex items-center" href="#">
+                <img src="https://cdn.discordapp.com/attachments/1341204908124405833/1375178849347833866/MeshesroundEdges2_diff.png?ex=6830be9b&is=682f6d1b&hm=f8da15d61fe2a61e70518847c3fb6915912aa263e86522fb21361cab19fe7b08&" alt="RoAPI Logo" class="mr-2 rounded-full w-10 h-10">
+                RoAPI
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -476,43 +478,43 @@
 
         <section id="reviews" class="section">
             <h2>What Our Users Say</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="review-card">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="user-reviews-container">
+                <div class="review-card" data-stars="5">
                     <div class="review-stars">★★★★★</div>
                     <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
                     <p class="text-lg font-semibold mb-2">"Absolutely essential for Roblox game developers!"</p>
                     <p class="text-base">"Honestly a great bot. It's great for anyone whether you want you track your favorite game, let your community see statistics about your game, or track Roblox event places eheheh. I highly recommend this as it's very helpful and easy to use as long as you read the instructions. 10/10 absolute cinema"</p>
                     <p class="text-sm mt-3 text-gray-300">- x_x061617</p>
                 </div>
-                <div class="review-card">
+                <div class="review-card" data-stars="5">
                     <div class="review-stars">★★★★★</div>
                     <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
                     <p class="text-lg font-semibold mb-2">"So sigma and so good"</p>
                     <p class="text-base">"I can finally track my favorite game Dress to Impress"</p>
                     <p class="text-sm mt-3 text-gray-300">- dija1or</p>
                 </div>
-                <div class="review-card">
+                <div class="review-card" data-stars="5">
                     <div class="review-stars">★★★★★</div>
                     <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
                     <p class="text-lg font-semibold mb-2">"Very helpful for tracking experiences"</p>
                     <p class="text-base">"Ah yes, I alaways wanted to track the game Grow a Garden on Roblox."</p>
                     <p class="text-sm mt-3 text-gray-300">- MrBarrier</p>
                 </div>
-                <div class="review-card">
+                <div class="review-card" data-stars="5">
                     <div class="review-stars">★★★★★</div>
                     <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
                     <p class="text-lg font-semibold mb-2">"nice one"</p>
                     <p class="text-base">"nice one"</p>
                     <p class="text-sm mt-3 text-gray-300">- dasmab2nny</p>
                 </div>
-                <div class="review-card">
+                <div class="review-card" data-stars="5">
                     <div class="review-stars">★★★★★</div>
                     <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
                     <p class="text-lg font-semibold mb-2">"This bot is so amazing"</p>
                     <p class="text-base">"I 100% recommend it for anyone who wants a cool update notifier or alert for the games that they like, and especially for DOORS we can use it to see updates in the testing server which is pretty neat, and we'll know that the devs are working hard for the next update. 6/5 stars."</p>
                     <p class="text-sm mt-3 text-gray-300">- chester0537_69646</p>
                 </div>
-                <div class="review-card">
+                <div class="review-card" data-stars="5">
                     <div class="review-stars">★★★★★</div>
                     <p class="text-sm text-gray-400 mb-2">5/5 Stars</p>
                     <p class="text-lg font-semibold mb-2">"This bot is so sigma"</p>
@@ -538,16 +540,6 @@
         let rateLimitResetTime = new Date().getTime() + 30000; // Simulate rate limit reset in 30 seconds
         let totalTrackers = 50; // Total number of trackers
         let updatedTrackers = 0; // Number of trackers updated
-
-        // Data for overall star ratings
-        // You can modify these values to see the overall rating and bars update!
-        let starRatingsData = {
-            5: 75, // 75 reviews gave 5 stars
-            4: 40, // 40 reviews gave 4 stars
-            3: 20, // 20 reviews gave 3 stars
-            2: 10, // 10 reviews gave 2 stars
-            1: 5   // 5 reviews gave 1 star
-        };
 
         /**
          * Updates the status text and background color of the status header.
@@ -632,13 +624,35 @@
 
         /**
          * Calculates and updates the overall average rating and the breakdown bars.
-         * This function reads from `starRatingsData` and updates the relevant DOM elements.
+         * This function reads from the actual review cards on the page.
          */
         function updateOverallRatings() {
             let totalReviews = 0;
             let weightedSum = 0;
+            const starRatingsData = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }; // Reset for recalculation
 
-            // Calculate total reviews and weighted sum
+            const reviewCards = document.querySelectorAll('#user-reviews-container .review-card');
+            reviewCards.forEach(card => {
+                // Extract stars from data-stars attribute or parse from text content
+                let stars = parseInt(card.dataset.stars);
+                if (isNaN(stars)) {
+                    // Fallback to parsing if data-stars is not set or invalid
+                    const starText = card.querySelector('.review-stars').innerText;
+                    // Count full stars (★) and half stars (½) for more accurate parsing
+                    const fullStarCount = (starText.match(/★/g) || []).length;
+                    const halfStarCount = (starText.match(/½/g) || []).length;
+                    stars = fullStarCount + (halfStarCount * 0.5); // Add 0.5 for half stars
+                }
+
+                // Round stars to nearest integer for categorization into 1-5 star buckets
+                const roundedStars = Math.round(stars);
+
+                if (roundedStars >= 1 && roundedStars <= 5) {
+                    starRatingsData[roundedStars]++;
+                }
+            });
+
+            // Calculate total reviews and weighted sum from the collected data
             for (const stars in starRatingsData) {
                 totalReviews += starRatingsData[stars];
                 weightedSum += parseInt(stars) * starRatingsData[stars];
@@ -674,10 +688,13 @@
             }
         }
 
-        // Initial calls to update UI on page load
-        updateStatus();
-        updateTrackerProgress();
-        updateOverallRatings(); // Call the new function to populate ratings
+        // Event listener for the Generate Description button (removed functionality)
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initial calls to update UI on page load
+            updateStatus();
+            updateTrackerProgress();
+            updateOverallRatings(); // Call this after the DOM is fully loaded
+        });
     </script>
 </body>
 </html>

@@ -488,7 +488,7 @@
             </div>
 
             <div id="star-breakdown" class="space-y-4">
-                </div>
+            </div>
         </section>
 
         <section id="reviews" class="section">
@@ -541,7 +541,7 @@
     </main>
 
     <footer class="footer">
-        <p class="text-sm">&copy; 2025 RoAPI. All rights reserved.</p>
+        <p class="text-sm">© 2025 RoAPI. All rights reserved.</p>
         <ul class="list-inline mt-2 flex justify-center space-x-4">
             <li class="list-inline-item"><a href="#" class="text-sm hover:underline">Privacy Policy</a></li>
             <li class="list-inline-item"><a href="#" class="text-sm hover:underline">Terms of Service</a></li>
@@ -550,146 +550,122 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initial status and progress simulation values
-        let status = "rate_limited"; // Current bot status
-        let rateLimitResetTime = new Date().getTime() + 30000; // Simulate rate limit reset in 30 seconds
-        let totalTrackers = 50; // Total number of trackers
-        let updatedTrackers = 0; // Number of trackers updated
+        // Status emoji mapping
+        const statusEmojis = {
+            "Under Construction": "🛠️",
+            "Down": "🔴",
+            "Running": "🟢",
+            "Rate Limited": "⚠️"
+        };
 
-        /**
-         * Updates the status text and background color of the status header.
-         * This function is called periodically to reflect changes in bot status.
-         */
-        function updateStatus() {
-            let statusText = "";
-            let backgroundColor = "";
-            let textColor = "var(--text-light)"; // Default text color for status
+        // Status color mapping
+        const statusColors = {
+            "Under Construction": "var(--status-under-construction)",
+            "Down": "var(--status-down)",
+            "Running": "var(--status-running)",
+            "Rate Limited": "var(--status-rate-limited)"
+        };
 
-            // Determine status text and background color based on current status
-            switch(status) {
-                case "under_construction":
-                    statusText = "🛠️ Under Construction";
-                    backgroundColor = "var(--status-under-construction)";
-                    textColor = "#333"; // Darker text for yellow background
-                    break;
-                case "down":
-                    statusText = "🔴 Down";
-                    backgroundColor = "var(--status-down)";
-                    break;
-                case "running":
-                    statusText = "🟢 Running";
-                    backgroundColor = "var(--status-running)";
-                    break;
-                case "rate_limited":
-                    statusText = "⚠️ Rate Limited";
-                    backgroundColor = "var(--status-rate-limited)";
-                    // Calculate time left for rate limit reset
-                    if (rateLimitResetTime) {
-                        let now = new Date().getTime();
-                        let timeLeft = Math.ceil((rateLimitResetTime - now) / 1000);
-                        if (timeLeft > 0) {
-                            statusText += ` (Resets in ${timeLeft}s)`;
-                        } else {
-                            statusText += " (Resetting...)";
-                        }
-                    }
-                    break;
-                default:
-                    statusText = "Unknown Status";
-                    backgroundColor = "#6c757d"; // Grey for unknown
+        // Fetch and update bot status
+        async function updateStatus() {
+            try {
+                const response = await fetch('http://192.168.188.124:9115/status'); // Replace with your bot server IP
+                const data = await response.json();
+                const statusTextElement = document.getElementById('status-text');
+                let statusDisplay = `${statusEmojis[data.status] || ''} ${data.status}`;
+                let textColor = "var(--text-light)";
+
+                if (data.status === "Rate Limited" && data.remaining) {
+                    const remaining = data.remaining;
+                    const minutes = Math.floor(remaining / 60);
+                    const seconds = remaining % 60;
+                    statusDisplay += ` - Resets in ${minutes}m ${seconds}s`;
+                }
+
+                statusTextElement.textContent = statusDisplay;
+                if (data.status === "Under Construction") textColor = "#333"; // Darker text for yellow
+                statusTextElement.style.color = textColor;
+                document.getElementById("status-header").style.backgroundColor = statusColors[data.status] || "rgba(13, 27, 42, 0.9)";
+            } catch (error) {
+                console.error('Error fetching status:', error);
+                document.getElementById('status-text').textContent = "🔴 Error fetching status";
             }
-            // Apply updates to the DOM
-            document.getElementById("status-text").innerText = statusText;
-            document.getElementById("status-text").style.color = textColor;
-            document.getElementById("status-header").style.backgroundColor = backgroundColor;
         }
 
-        /**
-         * Updates the progress bar and text for tracker updates.
-         * This simulates the bot's progress in updating game trackers.
-         */
-        function updateTrackerProgress() {
-            let progress = (updatedTrackers / totalTrackers) * 100;
-            document.querySelector("#tracker-progress progress").value = progress;
-            document.getElementById("tracker-text").innerText = `${updatedTrackers}/${totalTrackers} trackers updated`;
+        // Fetch and update tracker progress
+        async function updateProgress() {
+            try {
+                const response = await fetch('http://192.168.188.124:9115/progress'); // Replace with your bot server IP
+                const data = await response.json();
+                const progressBar = document.querySelector('#tracker-progress progress');
+                const progressText = document.getElementById('tracker-text');
+
+                if (data.cycle_complete) {
+                    const remaining = data.remaining;
+                    const minutes = Math.floor(remaining / 60);
+                    const seconds = remaining % 60;
+                    progressText.textContent = `Sleeping for ${minutes}m ${seconds}s`;
+                    progressBar.value = 100;
+                } else {
+                    const updated = data.updated;
+                    const total = data.total;
+                    const percentage = total > 0 ? (updated / total) * 100 : 0;
+                    progressBar.value = percentage;
+                    progressText.textContent = `${updated}/${total} trackers updated`;
+                }
+            } catch (error) {
+                console.error('Error fetching progress:', error);
+                document.getElementById('tracker-text').textContent = "Error fetching progress";
+            }
         }
 
-        /**
-         * Generates star icons (full, half, empty) based on a given rating.
-         * @param {number} rating - The numerical rating (e.g., 4.5).
-         * @returns {string} HTML string of star icons.
-         */
+        // Generate star icons for ratings
         function generateStarIcons(rating) {
             let starsHtml = '';
             const fullStars = Math.floor(rating);
             const halfStar = rating % 1 >= 0.5;
             const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
 
-            for (let i = 0; i < fullStars; i++) {
-                starsHtml += '★'; // Full star
-            }
-            if (halfStar) {
-                starsHtml += '½'; // Half star
-            }
-            for (let i = 0; i < emptyStars; i++) {
-                starsHtml += '☆'; // Empty star
-            }
+            for (let i = 0; i < fullStars; i++) starsHtml += '★';
+            if (halfStar) starsHtml += '½';
+            for (let i = 0; i < emptyStars; i++) starsHtml += '☆';
             return starsHtml;
         }
 
-        /**
-         * Calculates and updates the overall average rating and the breakdown bars.
-         * This function reads from the actual review cards on the page.
-         */
+        // Update overall ratings and breakdown
         function updateOverallRatings() {
             let totalReviews = 0;
             let weightedSum = 0;
-            const starRatingsData = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }; // Reset for recalculation
+            const starRatingsData = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
             const reviewCards = document.querySelectorAll('#user-reviews-container .review-card');
             reviewCards.forEach(card => {
-                // Extract stars from data-stars attribute or parse from text content
                 let stars = parseInt(card.dataset.stars);
                 if (isNaN(stars)) {
-                    // Fallback to parsing if data-stars is not set or invalid
                     const starText = card.querySelector('.review-stars').innerText;
-                    // Count full stars (★) and half stars (½) for more accurate parsing
                     const fullStarCount = (starText.match(/★/g) || []).length;
                     const halfStarCount = (starText.match(/½/g) || []).length;
-                    stars = fullStarCount + (halfStarCount * 0.5); // Add 0.5 for half stars
+                    stars = fullStarCount + (halfStarCount * 0.5);
                 }
-
-                // Round stars to nearest integer for categorization into 1-5 star buckets
                 const roundedStars = Math.round(stars);
-
-                if (roundedStars >= 1 && roundedStars <= 5) {
-                    starRatingsData[roundedStars]++;
-                }
+                if (roundedStars >= 1 && roundedStars <= 5) starRatingsData[roundedStars]++;
             });
 
-            // Calculate total reviews and weighted sum from the collected data
             for (const stars in starRatingsData) {
                 totalReviews += starRatingsData[stars];
                 weightedSum += parseInt(stars) * starRatingsData[stars];
             }
 
-            // Calculate average rating, handle division by zero
             const averageRating = totalReviews === 0 ? 0 : (weightedSum / totalReviews).toFixed(1);
-
-            // Update overall average display
             document.getElementById('overall-average-stars').innerHTML = generateStarIcons(averageRating);
             document.getElementById('overall-average-text').innerText = `${averageRating} / 5 Stars`;
             document.getElementById('total-reviews-text').innerText = `${totalReviews} Total Reviews`;
 
-            // Update individual star breakdown bars
             const starBreakdownContainer = document.getElementById('star-breakdown');
-            starBreakdownContainer.innerHTML = ''; // Clear previous bars
-
-            // Render bars from 5 stars down to 1 star
+            starBreakdownContainer.innerHTML = '';
             for (let i = 5; i >= 1; i--) {
-                const count = starRatingsData[i] || 0; // Get count, default to 0 if not present
-                const percentage = totalReviews === 0 ? 0 : (count / totalReviews) * 100; // Calculate percentage
-
+                const count = starRatingsData[i] || 0;
+                const percentage = totalReviews === 0 ? 0 : (count / totalReviews) * 100;
                 const barHtml = `
                     <div class="flex items-center space-x-3">
                         <span class="w-8 text-right text-lg font-bold text-primary-blue">${i} <span class="text-yellow-400">★</span></span>
@@ -703,12 +679,13 @@
             }
         }
 
-        // Event listener for the Generate Description button (removed functionality)
+        // Initial load and periodic updates
         document.addEventListener('DOMContentLoaded', () => {
-            // Initial calls to update UI on page load
             updateStatus();
-            updateTrackerProgress();
-            updateOverallRatings(); // Call this after the DOM is fully loaded
+            updateProgress();
+            updateOverallRatings();
+            setInterval(updateStatus, 5000); // Update every 5 seconds
+            setInterval(updateProgress, 5000);
         });
     </script>
 </body>

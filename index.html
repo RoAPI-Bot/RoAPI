@@ -8,35 +8,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Custom CSS variables for consistent neon theme */
         :root {
-            --primary-blue: #00c4ff; /* Vibrant neon blue for accents */
-            --light-blue: #1e3a5f; /* Darker blue for subtle backgrounds */
-            --dark-blue: #0d1b2a; /* Deep cosmic blue for main background elements */
-            --status-under-construction: #ffaa00; /* Neon yellow for construction */
-            --status-down: #ff3366; /* Neon red for down status */
-            --status-running: #33ff99; /* Neon green for running status */
-            --status-rate-limited: #ff6633; /* Neon orange for rate-limited status */
-            --text-light: #e0e7ff; /* Light text for contrast */
-            --glow-shadow: 0 0 8px var(--primary-blue), 0 0 15px var(--primary-blue); /* Neon glow effect */
+            --primary-blue: #00c4ff;
+            --light-blue: #1e3a5f;
+            --dark-blue: #0d1b2a;
+            --status-under-construction: #ffaa00;
+            --status-down: #ff3366;
+            --status-running: #33ff99;
+            --status-rate-limited: #ff6633;
+            --text-light: #e0e7ff;
+            --glow-shadow: 0 0 8px var(--primary-blue), 0 0 15px var(--primary-blue);
         }
 
-        /* Body styling to match the cosmic, glowing triangle image */
         body {
-            font-family: 'Inter', sans-serif; /* Use Inter font */
-            background-color: var(--dark-blue); /* Fallback background color */
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-blue);
             background-image: url('https://cdn.discordapp.com/attachments/1277782385798283275/1374855520761942177/blue-background-with-triangular-glowing-shapes-floating-space_358270-8960.jpg?ex=68303a3b&is=682ee8bb&hm=fd8ccf255580759325f3c3919e0bbe318a24da31818d86f2572f405f719de17a&');
-            background-size: cover; /* Cover the entire viewport */
-            background-position: center; /* Center the background image */
-            background-attachment: fixed; /* Parallax effect for the background */
-            color: var(--text-light); /* Light text color */
-            padding-top: 80px; /* Space for fixed status header */
-            line-height: 1.6; /* Improved readability */
-            position: relative; /* For overlay */
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-light);
+            padding-top: 80px;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Overlay for the background image to maintain dark cosmic feel */
         body::before {
             content: '';
             position: fixed;
@@ -44,11 +41,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(42, 77, 122, 0.8)); /* Dark cosmic gradient overlay */
-            z-index: -1; /* Behind content */
+            background: linear-gradient(135deg, rgba(13, 27, 42, 0.9), rgba(42, 77, 122, 0.8));
+            z-index: -1;
         }
 
-        /* Fixed status header at the top */
         #status-header {
             position: fixed;
             top: 0;
@@ -57,63 +53,58 @@
             z-index: 1000;
             padding: 12px 0;
             transition: background-color 0.3s ease;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Stronger shadow for depth */
-            backdrop-filter: blur(5px); /* Subtle blur for modern look */
-            background-color: rgba(13, 27, 42, 0.9); /* Semi-transparent dark blue */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            background-color: rgba(13, 27, 42, 0.9);
         }
 
-        /* Navbar styling */
         .navbar {
-            background-color: rgba(13, 27, 42, 0.95); /* Slightly less transparent than header */
+            background-color: rgba(13, 27, 42, 0.95);
             position: sticky;
-            top: 50px; /* Below the status header */
+            top: 50px;
             z-index: 999;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Enhanced shadow */
-            border-radius: 10px; /* Rounded corners for the navbar */
-            margin-bottom: 2rem; /* Space below navbar */
-            backdrop-filter: blur(3px); /* Subtle blur */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(3px);
         }
 
-        /* Navbar brand and links with neon blue and hover effect */
         .navbar-brand, .nav-link {
-            color: var(--primary-blue) !important; /* Neon blue */
+            color: var(--primary-blue) !important;
             transition: color 0.3s ease, text-shadow 0.3s ease;
-            text-shadow: 0 0 5px var(--primary-blue); /* Subtle glow */
+            text-shadow: 0 0 5px var(--primary-blue);
         }
 
         .nav-link:hover {
-            color: #33ff99 !important; /* Neon green on hover */
-            text-shadow: 0 0 10px #33ff99, 0 0 20px #33ff99; /* Stronger glow on hover */
+            color: #33ff99 !important;
+            text-shadow: 0 0 10px #33ff99, 0 0 20px #33ff99;
         }
 
-        /* Section styling with translucent background and glow */
         .section {
-            padding: 3rem 2rem; /* Adjusted padding */
-            background: rgba(30, 58, 95, 0.7); /* Translucent dark blue sections */
-            margin: 1.5rem auto; /* Centered with more margin */
-            border-radius: 15px; /* Rounded corners */
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), var(--glow-shadow); /* Enhanced shadow and glow */
+            padding: 3rem 2rem;
+            background: rgba(30, 58, 95, 0.7);
+            margin: 1.5rem auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), var(--glow-shadow);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            max-width: 900px; /* Max width for content readability */
+            max-width: 900px;
         }
 
         .section:hover {
-            transform: translateY(-8px); /* More pronounced lift on hover */
-            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-blue), 0 0 30px var(--primary-blue); /* Stronger glow on hover */
+            transform: translateY(-8px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-blue), 0 0 30px var(--primary-blue);
         }
 
-        /* Footer styling */
         .footer {
             background-color: var(--dark-blue);
             color: var(--text-light);
             padding: 3rem 0;
             text-align: center;
-            border-top: 4px solid var(--primary-blue); /* Neon blue border top */
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+            border-top: 4px solid var(--primary-blue);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
             margin-top: 3rem;
         }
 
-        /* Footer links with neon blue and hover effect */
         .footer a {
             color: var(--primary-blue);
             transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -121,114 +112,98 @@
         }
 
         .footer a:hover {
-            color: #33ff99; /* Neon green on hover */
+            color: #33ff99;
             text-shadow: 0 0 10px #33ff99;
         }
 
-        /* Headings with neon blue and glow */
         h1, h2 {
             color: var(--primary-blue);
             font-weight: 700;
             margin-bottom: 1.5rem;
-            text-shadow: var(--glow-shadow); /* Apply neon glow */
-            text-align: center; /* Center headings */
+            text-shadow: var(--glow-shadow);
+            text-align: center;
         }
 
-        /* Code block styling */
         code {
             background: var(--light-blue);
-            padding: 4px 8px; /* Slightly more padding */
-            border-radius: 6px; /* More rounded */
+            padding: 4px 8px;
+            border-radius: 6px;
             color: var(--primary-blue);
-            font-family: 'Fira Code', monospace; /* A more "code-like" font */
-            box-shadow: 0 0 5px rgba(0, 196, 255, 0.5); /* Subtle glow for code */
+            font-family: 'Fira Code', monospace;
+            box-shadow: 0 0 5px rgba(0, 196, 255, 0.5);
         }
 
-        /* Hero section with the actual image and enhanced text */
         .hero {
-            background-image: url('blue-background-with-triangular-glowing-shapes-floating-space_358270-8960-1.jpg-2e64061b-1570-4930-b9aa-d3c9d686a57f');
+            background-image: url('https://cdn.discordapp.com/attachments/1277782385798283275/1374855520761942177/blue-background-with-triangular-glowing-shapes-floating-space_358270-8960.jpg?ex=68303a3b&is=682ee8bb&hm=fd8ccf255580759325f3c3919e0bbe318a24da31818d86f2572f405f719de17a&');
             background-size: cover;
             background-position: center;
-            height: 500px; /* Increased height for impact */
+            height: 500px;
             display: flex;
-            flex-direction: column; /* Allow stacking of h1 and button */
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             color: var(--text-light);
-            text-shadow: 0 0 15px rgba(0, 196, 255, 0.8), 0 0 25px rgba(0, 196, 255, 0.6); /* Stronger glow for hero text */
+            text-shadow: 0 0 15px rgba(0, 196, 255, 0.8), 0 0 25px rgba(0, 196, 255, 0.6);
             margin-bottom: 3rem;
-            border-radius: 15px; /* Rounded corners */
-            overflow: hidden; /* Ensure content stays within bounds */
+            border-radius: 15px;
+            overflow: hidden;
         }
 
         .hero h1 {
-            font-size: 4rem; /* Larger font size */
+            font-size: 4rem;
             font-weight: 700;
             text-align: center;
             line-height: 1.2;
-            padding: 0 1rem; /* Padding to prevent text from touching edges */
-            margin-bottom: 1.5rem; /* Space between h1 and button */
+            padding: 0 1rem;
+            margin-bottom: 1.5rem;
         }
 
-        /* Keyframe animation for pulsating glow */
         @keyframes pulse-glow {
-            0% {
-                box-shadow: 0 0 10px var(--primary-blue), 0 0 15px rgba(0, 196, 255, 0.7);
-            }
-            50% {
-                box-shadow: 0 0 20px var(--primary-blue), 0 0 30px rgba(0, 196, 255, 0.9);
-            }
-            100% {
-                box-shadow: 0 0 10px var(--primary-blue), 0 0 15px rgba(0, 196, 255, 0.7);
-            }
+            0% { box-shadow: 0 0 10px var(--primary-blue), 0 0 15px rgba(0, 196, 255, 0.7); }
+            50% { box-shadow: 0 0 20px var(--primary-blue), 0 0 30px rgba(0, 196, 255, 0.9); }
+            100% { box-shadow: 0 0 10px var(--primary-blue), 0 0 15px rgba(0, 196, 255, 0.7); }
         }
 
-        /* Progress bar styling */
         progress {
-            /* Remove default appearance */
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
-
-            height: 25px; /* Taller progress bar */
+            height: 25px;
             margin-top: 10px;
-            background-color: rgba(13, 27, 42, 0.8); /* Darker, semi-transparent background for progress bar */
-            border-radius: 9999px; /* Fully rounded corners (like Tailwind's rounded-full) */
-            overflow: hidden; /* Ensure bar stays within bounds */
-            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.7), 0 0 5px rgba(0, 196, 255, 0.3); /* Inner shadow for depth, subtle outer glow */
-            border: 1px solid rgba(0, 196, 255, 0.3); /* Subtle neon border */
-            width: 50%; /* Tailwind's w-1/2 */
-            margin-left: auto; /* Tailwind's mx-auto */
-            margin-right: auto; /* Tailwind's mx-auto */
-            display: block; /* Ensure it takes full width and margins work */
+            background-color: rgba(13, 27, 42, 0.8);
+            border-radius: 9999px;
+            overflow: hidden;
+            box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.7), 0 0 5px rgba(0, 196, 255, 0.3);
+            border: 1px solid rgba(0, 196, 255, 0.3);
+            width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+            display: block;
         }
 
-        /* Style the progress bar fill for Webkit (Chrome, Safari) */
         progress::-webkit-progress-bar {
             background-color: rgba(13, 27, 42, 0.8);
             border-radius: 9999px;
         }
 
         progress::-webkit-progress-value {
-            background: linear-gradient(90deg, rgba(0, 196, 255, 0.5), var(--primary-blue), rgba(0, 196, 255, 0.5)); /* More dynamic gradient */
+            background: linear-gradient(90deg, rgba(0, 196, 255, 0.5), var(--primary-blue), rgba(0, 196, 255, 0.5));
             border-radius: 9999px;
-            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8); /* Enhanced neon glow for the bar */
-            filter: drop-shadow(0 0 8px rgba(0, 196, 255, 0.7)); /* Additional soft glow */
-            animation: pulse-glow 2s infinite alternate; /* Apply pulsating glow animation */
-            transition: width 0.5s ease-in-out; /* Smooth transition for progress */
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8);
+            filter: drop-shadow(0 0 8px rgba(0, 196, 255, 0.7));
+            animation: pulse-glow 2s infinite alternate;
+            transition: width 0.5s ease-in-out;
         }
 
-        /* Style the progress bar fill for Firefox */
         progress::-moz-progress-bar {
-            background: linear-gradient(90deg, rgba(0, 196, 255, 0.5), var(--primary-blue), rgba(0, 196, 255, 0.5)); /* More dynamic gradient */
+            background: linear-gradient(90deg, rgba(0, 196, 255, 0.5), var(--primary-blue), rgba(0, 196, 255, 0.5));
             border-radius: 9999px;
-            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8); /* Enhanced neon glow for the bar */
-            filter: drop-shadow(0 0 8px rgba(0, 196, 255, 0.7)); /* Additional soft glow */
-            animation: pulse-glow 2s infinite alternate; /* Apply pulsating glow animation */
-            transition: width 0.5s ease-in-out; /* Smooth transition for progress */
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8);
+            filter: drop-shadow(0 0 8px rgba(0, 196, 255, 0.7));
+            animation: pulse-glow 2s infinite alternate;
+            transition: width 0.5s ease-in-out;
         }
 
-        /* Link styling with neon blue and hover effect */
         a.text-blue-600 {
             color: var(--primary-blue) !important;
             text-shadow: 0 0 5px var(--primary-blue);
@@ -236,134 +211,109 @@
         }
 
         a.text-blue-600:hover {
-            color: #33ff99 !important; /* Neon green on hover */
+            color: #33ff99 !important;
             text-shadow: 0 0 10px #33ff99;
         }
 
-        /* Status indicators for the status section */
         .status-indicator {
             padding: 6px 12px;
             border-radius: 8px;
             font-weight: 700;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Subtle white glow */
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
             box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
         }
 
-        /* Specific status colors with enhanced glow */
         .bg-yellow-400 { background-color: var(--status-under-construction) !important; color: #333 !important; text-shadow: none; }
         .bg-red-500 { background-color: var(--status-down) !important; box-shadow: 0 0 10px var(--status-down); }
         .bg-green-500 { background-color: var(--status-running) !important; box-shadow: 0 0 10px var(--status-running); }
         .bg-orange-500 { background-color: var(--status-rate-limited) !important; box-shadow: 0 0 10px var(--status-rate-limited); }
 
-        /* Review card styling */
         .review-card {
-            background: rgba(30, 58, 95, 0.8); /* Slightly darker translucent background */
+            background: rgba(30, 58, 95, 0.8);
             border-radius: 10px;
             padding: 1.5rem;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(0, 196, 255, 0.2); /* Subtle neon border */
+            border: 1px solid rgba(0, 196, 255, 0.2);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .review-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 10px var(--primary-blue); /* Enhanced glow on hover */
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4), 0 0 10px var(--primary-blue);
         }
 
         .review-stars {
-            color: #FFD700; /* Gold color for stars */
+            color: #FFD700;
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
-            text-shadow: 0 0 5px rgba(255, 215, 0, 0.7); /* Gold glow for stars */
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
         }
 
-        /* Styling for rating breakdown bars */
         .progress-rating {
-            height: 18px; /* Slightly smaller than main progress bar */
-            background-color: rgba(13, 27, 42, 0.6); /* Darker background */
+            height: 18px;
+            background-color: rgba(13, 27, 42, 0.6);
             border-radius: 9999px;
             overflow: hidden;
             box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(0, 196, 255, 0.1);
-            flex-grow: 1; /* Allow it to take available space */
+            flex-grow: 1;
         }
 
         .progress-bar-rating {
             height: 100%;
-            background: linear-gradient(90deg, rgba(0, 196, 255, 0.3), var(--primary-blue)); /* Lighter gradient */
+            background: linear-gradient(90deg, rgba(0, 196, 255, 0.3), var(--primary-blue));
             border-radius: 9999px;
             transition: width 0.5s ease-in-out;
-            box-shadow: 0 0 8px var(--primary-blue); /* Subtle glow */
+            box-shadow: 0 0 8px var(--primary-blue);
         }
 
-        /* Button styling for "Submit a Review" and "Invite Bot" */
         .btn-neon {
-            background: linear-gradient(45deg, var(--primary-blue), #33ff99); /* Gradient from blue to green */
-            color: var(--dark-blue); /* Dark text for contrast */
+            background: linear-gradient(45deg, var(--primary-blue), #33ff99);
+            color: var(--dark-blue);
             font-weight: 700;
             padding: 12px 30px;
-            border-radius: 9999px; /* Fully rounded */
+            border-radius: 9999px;
             text-transform: uppercase;
             letter-spacing: 1px;
-            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px #33ff99; /* Dual neon glow */
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px #33ff99;
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            text-decoration: none; /* Remove underline for links */
-            display: inline-block; /* Allows padding and margin */
+            text-decoration: none;
+            display: inline-block;
         }
 
         .btn-neon:hover {
-            transform: translateY(-3px) scale(1.02); /* Slight lift and scale */
-            box-shadow: 0 0 20px var(--primary-blue), 0 0 35px #33ff99; /* Stronger glow on hover */
-            color: var(--dark-blue); /* Ensure text color remains dark */
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 0 20px var(--primary-blue), 0 0 35px #33ff99;
+            color: var(--dark-blue);
         }
 
-        /* Fixed logo in the corner */
         .corner-logo {
             position: fixed;
-            top: 1rem; /* Distance from top */
-            left: 1rem; /* Distance from left */
-            z-index: 1001; /* Ensure it's above everything else */
-            width: 64px; /* Size of the logo */
+            top: 1rem;
+            left: 1rem;
+            z-index: 1001;
+            width: 64px;
             height: 64px;
-            border-radius: 50%; /* Make it perfectly round */
-            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8); /* Strong neon glow */
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--primary-blue), 0 0 25px rgba(0, 196, 255, 0.8);
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .corner-logo:hover {
-            transform: scale(1.05); /* Slightly enlarge on hover */
-            box-shadow: 0 0 20px var(--primary-blue), 0 0 35px rgba(0, 196, 255, 1); /* Stronger glow on hover */
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--primary-blue), 0 0 35px rgba(0, 196, 255, 1);
         }
 
-        /* Responsive adjustments */
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem; /* Smaller font on mobile */
-            }
-            .section {
-                padding: 2rem 1rem; /* Reduced padding on mobile */
-                margin: 1rem auto;
-            }
-            #status-header {
-                padding: 8px 0; /* Smaller padding for status header */
-            }
-            .navbar {
-                top: 40px; /* Adjust navbar position for smaller status header */
-            }
-            body {
-                padding-top: 60px; /* Adjust body padding for smaller status header */
-            }
-            progress {
-                width: 80%; /* Wider progress bar on small screens */
-            }
-            .corner-logo {
-                width: 48px; /* Smaller logo on mobile */
-                height: 48px;
-                top: 0.5rem;
-                left: 0.5rem;
-            }
+            .hero h1 { font-size: 2.5rem; }
+            .section { padding: 2rem 1rem; margin: 1rem auto; }
+            #status-header { padding: 8px 0; }
+            .navbar { top: 40px; }
+            body { padding-top: 60px; }
+            progress { width: 80%; }
+            .corner-logo { width: 48px; height: 48px; top: 0.5rem; left: 0.5rem; }
         }
     </style>
 </head>
@@ -424,7 +374,7 @@
                 <li>Weekly, monthly, and yearly performance reports.</li>
                 <li>Priority in update cycle.</li>
                 <li>Track sub-places (In Development).</li>
-                <li>Badge and Dev Product detection (In Development)</li>
+                <li>Badge and Dev Product detection (In Development).</li>
             </ul>
             <p class="mt-3">Join our <a href="https://discord.gg/wvy5Nj7nDz" target="_blank" class="text-blue-600 hover:underline">Support Server</a> to learn more or purchase Premium.</p>
         </section>
@@ -462,7 +412,7 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="mb-4">
                     <a href="https://cdn.discordapp.com/attachments/1205534191014641764/1365594195280003122/New_Project_60.png?ex=68302733&is=682ed5b3&hm=31ac6463e70fefdc10891f23cd412375b56a4eed3d89d3acd117e91bb37d85dc&" data-lightbox="gallery" data-title="Image 1">
-                        <img src="https://cdn.discordapp.com/attachments/1205534191014641764/1365594195280003122/New_Project_60.png?ex=68302733&is=682ed5b3&hm=31ac6463e70fefdc10891f23cd412375b56a4eed3d85dc&" class="img-fluid rounded-lg shadow-lg hover:shadow-primary-blue transition-shadow duration-300" alt="Image 1" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0d1b2a/e0e7ff?text=Placeholder';">
+                        <img src="https://cdn.discordapp.com/attachments/1205534191014641764/1365594195280003122/New_Project_60.png?ex=68302733&is=682ed5b3&hm=31ac6463e70fefdc10891f23cd412375b56a4eed3d89d3acd117e91bb37d85dc&" class="img-fluid rounded-lg shadow-lg hover:shadow-primary-blue transition-shadow duration-300" alt="Image 1" loading="lazy" onerror="this.onerror=null;this.src='https://placehold.co/300x200/0d1b2a/e0e7ff?text=Placeholder';">
                     </a>
                 </div>
                 <div class="mb-4">
@@ -487,8 +437,7 @@
                 <a href="https://top.gg/bot/1362442812380938410" target="_blank" class="btn-neon">Submit a Review</a>
             </div>
 
-            <div id="star-breakdown" class="space-y-4">
-            </div>
+            <div id="star-breakdown" class="space-y-4"></div>
         </section>
 
         <section id="reviews" class="section">
@@ -569,23 +518,28 @@
         // Fetch and update bot status
         async function updateStatus() {
             try {
-                const response = await fetch('http://192.168.188.124:8080/status'); // Replace with your bot server IP
+                const response = await fetch('https://api.github.com/repos/roapi-bot/RoAPI/contents/status.json', {
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
                 const data = await response.json();
+                const content = JSON.parse(atob(data.content)); // Decode base64
                 const statusTextElement = document.getElementById('status-text');
-                let statusDisplay = `${statusEmojis[data.status] || ''} ${data.status}`;
+                let statusDisplay = `${statusEmojis[content.status] || ''} ${content.status}`;
                 let textColor = "var(--text-light)";
 
-                if (data.status === "Rate Limited" && data.remaining) {
-                    const remaining = data.remaining;
+                if (content.status === "Rate Limited" && content.remaining) {
+                    const remaining = content.remaining;
                     const minutes = Math.floor(remaining / 60);
-                    const seconds = remaining % 60;
+                    const seconds = Math.round(remaining % 60);
                     statusDisplay += ` - Resets in ${minutes}m ${seconds}s`;
                 }
 
                 statusTextElement.textContent = statusDisplay;
-                if (data.status === "Under Construction") textColor = "#333"; // Darker text for yellow
+                if (content.status === "Under Construction") textColor = "#333";
                 statusTextElement.style.color = textColor;
-                document.getElementById("status-header").style.backgroundColor = statusColors[data.status] || "rgba(13, 27, 42, 0.9)";
+                document.getElementById("status-header").style.backgroundColor = statusColors[content.status] || "rgba(13, 27, 42, 0.9)";
             } catch (error) {
                 console.error('Error fetching status:', error);
                 document.getElementById('status-text').textContent = "🔴 Error fetching status";
@@ -595,20 +549,25 @@
         // Fetch and update tracker progress
         async function updateProgress() {
             try {
-                const response = await fetch('http://192.168.188.124:8080/progress'); // Replace with your bot server IP
+                const response = await fetch('https://api.github.com/repos/roapi-bot/RoAPI/contents/status.json', {
+                    headers: {
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
                 const data = await response.json();
+                const content = JSON.parse(atob(data.content)); // Decode base64
                 const progressBar = document.querySelector('#tracker-progress progress');
                 const progressText = document.getElementById('tracker-text');
 
-                if (data.cycle_complete) {
-                    const remaining = data.remaining;
+                if (content.cycle_complete) {
+                    const remaining = content.remaining;
                     const minutes = Math.floor(remaining / 60);
-                    const seconds = remaining % 60;
+                    const seconds = Math.round(remaining % 60);
                     progressText.textContent = `Sleeping for ${minutes}m ${seconds}s`;
                     progressBar.value = 100;
                 } else {
-                    const updated = data.updated;
-                    const total = data.total;
+                    const updated = content.updated;
+                    const total = content.total;
                     const percentage = total > 0 ? (updated / total) * 100 : 0;
                     progressBar.value = percentage;
                     progressText.textContent = `${updated}/${total} trackers updated`;
@@ -684,7 +643,7 @@
             updateStatus();
             updateProgress();
             updateOverallRatings();
-            setInterval(updateStatus, 5000); // Update every 5 seconds
+            setInterval(updateStatus, 5000);
             setInterval(updateProgress, 5000);
         });
     </script>

@@ -569,7 +569,7 @@
         // Fetch and update bot status
         async function updateStatus() {
             try {
-                const response = await fetch('http://192.168.188.124:9115/status'); // Replace with your bot server IP
+                const response = await fetch('http://192.168.188.124:8080/status'); // Replace with your bot server IP
                 const data = await response.json();
                 const statusTextElement = document.getElementById('status-text');
                 let statusDisplay = `${statusEmojis[data.status] || ''} ${data.status}`;
@@ -595,7 +595,7 @@
         // Fetch and update tracker progress
         async function updateProgress() {
             try {
-                const response = await fetch('http://192.168.188.124:9115/progress'); // Replace with your bot server IP
+                const response = await fetch('http://192.168.188.124:8080/progress'); // Replace with your bot server IP
                 const data = await response.json();
                 const progressBar = document.querySelector('#tracker-progress progress');
                 const progressText = document.getElementById('tracker-text');

@@ -1,7 +1,7 @@
 {
   "status": "Running",
   "remaining": 0,
-  "cycle_complete": true,
-  "updated": 50,
+  "cycle_complete": false,
+  "updated": 0,
   "total": 50
 }

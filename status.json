@@ -1,7 +1,7 @@
 {
-  "status": "Rate Limited",
+  "status": "Running",
   "remaining": 0,
-  "cycle_complete": true,
-  "updated": 49,
+  "cycle_complete": false,
+  "updated": 2,
   "total": 49
 }
